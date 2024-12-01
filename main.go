@@ -100,7 +100,7 @@ type Running struct {
 // Это переопределенный метод Calories() из Training.
 func (r Running) Calories() float64 {
 	// вставьте ваш код ниже
-	return (CaloriesMeanSpeedMultiplier*r.meanSpeed() + CaloriesMeanSpeedShift) * r.Weight / MInKm * r.Duration.Hours() * MinsInHour
+	return (CaloriesMeanSpeedMultiplier*r.meanSpeed() + CaloriesMeanSpeedShift) * r.Weight / MInKm * r.Duration.Hours() * MinInHours
 }
 
 // TrainingInfo возвращает структуру InfoMessage с информацией о проведенной тренировке.
@@ -137,8 +137,8 @@ type Walking struct {
 // Это переопределенный метод Calories() из Training.
 func (w Walking) Calories() float64 {
 	// вставьте ваш код ниже
-	speedMps := w.meanSpeed() * (MInKm / MinsInHour) // км/ч -> м/с
-	return ((CaloriesWeightMultiplier*w.Weight + (speedMps*speedMps/w.Height)*CaloriesSpeedHeightMultiplier*w.Weight) * w.Duration.Hours() * MinsInHour)
+	speedMps := w.meanSpeed() * (MInKm / MinInHours) // км/ч -> м/с
+	return ((CaloriesWeightMultiplier*w.Weight + (speedMps*speedMps/w.Height)*CaloriesSpeedHeightMultiplier*w.Weight) * w.Duration.Hours() * MinInHours)
 }
 
 // TrainingInfo возвращает структуру InfoMessage с информацией о проведенной тренировке.
@@ -211,11 +211,6 @@ func ReadData(training CaloriesCalculator) string {
 	info.Calories = calories
 
 	return fmt.Sprint(info)
-}
-
-func ReadData(t CaloriesCalculator) {
-	info := t.TrainingInfo()
-	fmt.Println(info)
 }
 
 func main() {
